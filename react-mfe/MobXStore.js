@@ -1,5 +1,5 @@
 import { makeObservable, observable, action } from 'mobx';
-
+import { makeAutoObservable } from "mobx";
 class ChartStore {
   chartData = {
     labels: ["January", "February", "March", "April", "May"],
@@ -14,12 +14,21 @@ class ChartStore {
     ],
   };
   dataFromAngular = {}
-
+  constructor(){
+    makeAutoObservable(this);
+  }
   updateChartData(newData) {
     this.chartData = newData;
   }
   updateDataFromAngular(newData) {
     this.dataFromAngular = newData;
+  }
+
+  getDataFromAngular(){
+    return this.dataFromAngular;
+  }
+  getChartData(){
+    return this.chartData;
   }
 
 }

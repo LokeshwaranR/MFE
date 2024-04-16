@@ -73,7 +73,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       if (localStorage.getItem("AtoR")) {
         localStorage.removeItem("AtoR");
       }
-      localStorage.setItem("RtoA", JSON.stringify(resJSON));
+      localStorage.setItem("AtoR", JSON.stringify(resJSON));
     } else if (selectedComm == "CE") {
       const event = new CustomEvent("AngularToReact", {
         detail: {

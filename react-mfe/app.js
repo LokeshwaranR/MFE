@@ -4,9 +4,9 @@ import { Chart } from "primereact/chart";
 import "./app.css";
 import J1 from "./public/assets/J1.json";
 import J2 from "./public/assets/J2.json";
-import { observer } from 'mobx-react';
-import ChartStore from './MobXStore';
 import chartStore from "./MobXStore";
+import { observer } from "mobx-react";
+import { toJS } from 'mobx'
 
 class App extends React.Component {
   constructor(props) {
@@ -24,51 +24,53 @@ class App extends React.Component {
           },
         ],
       },
-      dataFromAngular: {}
+      dataFromAngular: {},
     };
   }
 
   componentDidMount() {
-    window.addEventListener('AngularToReact', this.handleDataFromAngular);
+    window.addEventListener("AngularToReact", this.handleDataFromAngular);
     const selectedCommunication = localStorage.getItem("selectedComm");
-    if (selectedCommunication === 'WBS') {
-    const receivedData = localStorage.getItem('AtoR');
-    if (receivedData) {
-      this.mapData(JSON.parse(receivedData));
-    } else {
-      console.error('Error in getting Data from localStorage');
+    if (selectedCommunication === "WBS") {
+      const receivedData = localStorage.getItem("AtoR");
+      if (receivedData) {
+        this.mapData(JSON.parse(receivedData));
+      } else {
+        console.error("Error in getting Data from localStorage");
+      }
+    } else if (selectedCommunication === "CE") {
+      console.log(chartStore.dataFromAngular);
+      let AngularData = chartStore.getDataFromAngular();
+      let originalData = toJS(AngularData);
+      console.log(originalData);
+      if (originalData  && originalData.data) {
+        this.mapData(originalData.data);
+      } else {
+        console.error("Error in getting Data from service");
+      }
     }
-  } else if (selectedCommunication === 'CE') {
-    console.log(chartStore.dataFromAngular);
-    if (this.state.dataFromAngular && this.state.dataFromAngular.data) {
-      this.mapData(this.state.dataFromAngular.data);
-    } else {
-      console.error('Error in getting Data from service');
-    }
-  }
   }
 
   componentWillUnmount() {
-    window.removeEventListener('AngularToReact', this.handleDataFromAngular);
+    window.removeEventListener("AngularToReact", this.handleDataFromAngular);
   }
 
   handleDataFromAngular = (event) => {
-    console.log('Received data from Angular:', event.detail);
-    ChartStore.updateDataFromAngular(event.detail);
-    this.setState({ dataFromAngular: event.detail });
-    console.log(this.state);
-  }
+    console.log("Received data from Angular:", event.detail);
+    chartStore.updateDataFromAngular(event.detail);
+  };
 
-  mapData(jsonData){
-    data = {
+  mapData(jsonData) {
+    let data = {
       labels: jsonData.map((data) => data.name),
       datasets: [
         {
-          label: 'Value Transition from Angular to React',
-          data: jsonData.map((data) => data.value)
-        }
-      ]
+          label: "Value Transition from Angular to React",
+          data: jsonData.map((data) => data.value),
+        },
+      ],
     };
+    chartStore.updateChartData(data);
   }
 
   sendData = async () => {
@@ -100,7 +102,7 @@ class App extends React.Component {
       const event = new CustomEvent("ReactToAngular", {
         detail: {
           message: "This is a custom event from React to Angular",
-          data: json
+          data: json,
         },
       });
       window.dispatchEvent(event);
@@ -168,3 +170,4 @@ class ReactMfe extends HTMLElement {
 }
 
 customElements.define("react-element", ReactMfe);
+export default observer(App);
