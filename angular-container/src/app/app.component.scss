@@ -1,0 +1,32 @@
+.parent {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    .box {
+        background-color: #2a2af8;
+        padding: 10px;
+        margin: 10px;
+        cursor: pointer;
+        border-radius: 5px;
+        color: aliceblue;
+        height: 40px;
+    }
+}
+
+.header-top{
+    display: flex;
+    background-color: lemonchiffon;
+    height: 60px;
+}
+.button-boxes{
+    display: flex;
+}
+.title-box{
+    display: flex;
+}
+.dropdown-menu{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,0 +1,30 @@
+<div class="header-top">
+  <div class="parent">
+    <div class="title-box">
+      <h2>TestBed. [Angular Container]</h2>
+    </div>
+    <div class="dropdown-menu">
+      <div style="padding: 5px;">
+        <p-dropdown [options]="JSONType" [(ngModel)]="selectedJSON" optionLabel="name" (onChange)="setJSON()"></p-dropdown>
+      </div>
+      <div style="padding: 5px;">
+        <p-dropdown [options]="CommMethod" [(ngModel)]="selectedComm" optionLabel="name" (onChange)="setComm()"></p-dropdown>
+      </div>
+    </div>
+    <div class="button-boxes">
+      <div>
+        <div class="box" routerLink="/angular/home">
+          <div>Angular Dashboard</div>
+        </div>
+      </div>
+      <div>
+        <div class="box" routerLink="/react">
+          <div>React Dashboard</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<router-outlet></router-outlet>
