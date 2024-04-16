@@ -6,11 +6,11 @@ const getRandomName = () => names[Math.floor(Math.random() * names.length)];
 
 const getRandomValue = () => Math.floor(Math.random() * 100) + 1;
 
-const dataList = Array.from({ length: 5000 }, () => ({
+const dataList = Array.from({ length: 50000 }, () => ({
     name: getRandomName(),
     value: getRandomValue(),
-    from: "React",
-    to: "Angular"
+    from: "Angular",
+    to: "React"
 }));
 
 const jsonString = JSON.stringify(dataList, null, 4);

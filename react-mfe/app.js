@@ -4,6 +4,8 @@ import { Chart } from "primereact/chart";
 import "./app.css";
 import J1 from "./public/assets/J1.json";
 import J2 from "./public/assets/J2.json";
+import J3 from "./public/assets/J3.json";
+import J4 from "./public/assets/J4.json";
 import chartStore from "./MobXStore";
 import { observer } from "mobx-react";
 import { toJS } from 'mobx'
@@ -90,6 +92,10 @@ class App extends React.Component {
       return J1;
     } else if (selectedJson == "J2") {
       return J2;
+    } else if (selectedJson == "J3") {
+      return J3;
+    } else if (selectedJson == "J4") {
+      return J4;
     }
   };
   setJSONForComm(json, comm) {
@@ -106,6 +112,13 @@ class App extends React.Component {
         },
       });
       window.dispatchEvent(event);
+    } else if (comm == 'SPB'){
+      const event = new CustomEvent("ReactToParent", {
+        detail: {
+          message: "This is a custom event from React to Parent Angular",
+          data: json,
+        },
+      });
     }
   }
 

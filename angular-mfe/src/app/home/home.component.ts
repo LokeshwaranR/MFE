@@ -66,6 +66,18 @@ export class HomeComponent implements OnInit, OnDestroy {
       }, (err) => {
         console.error("Failed to gather data:", err);
       });
+    } else if (selectedJson == "J3") {
+      this.http.get('http://localhost:4201/assets/J3.json').subscribe((res: any) => {
+        this.setDataComm(res, selectedCommunication);
+      }, (err) => {
+        console.error("Failed to gather data:", err);
+      });
+    } else if (selectedJson == "J4") {
+      this.http.get('http://localhost:4201/assets/J4.json').subscribe((res: any) => {
+        this.setDataComm(res, selectedCommunication);
+      }, (err) => {
+        console.error("Failed to gather data:", err);
+      });
     }
   };
   setDataComm(resJSON: any, selectedComm: any) {
@@ -78,6 +90,14 @@ export class HomeComponent implements OnInit, OnDestroy {
       const event = new CustomEvent("AngularToReact", {
         detail: {
           message: "This is a custom event from Angular to React",
+          data: resJSON
+        },
+      });
+      window.dispatchEvent(event);
+    } else if (selectedComm == 'SPB') {
+      const event = new CustomEvent("AngularToParent", {
+        detail: {
+          message: "This is a custom event from Angular to Parent Angular",
           data: resJSON
         },
       });

@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import {DropdownModule} from 'primeng/dropdown';
+import { ParentDataService } from './parent.service';
 
 
 @NgModule({
@@ -19,7 +20,7 @@ import {DropdownModule} from 'primeng/dropdown';
     DropdownModule,
     FormsModule
   ],
-  providers: [],
+  providers: [ParentDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
