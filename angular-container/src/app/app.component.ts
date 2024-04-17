@@ -27,7 +27,6 @@ export class AppComponent implements OnInit, OnDestroy {
     (window as any).removeEventListener('ReactToParent', this.handleAngularParentData.bind(this));
   }
   ngOnInit(): void {
-    debugger
     (window as any).addEventListener('AngularToParent', this.handleReactParentData.bind(this));
     (window as any).addEventListener('ReactToParent', this.handleAngularParentData.bind(this));
     if (localStorage.getItem('selectedComm')) {
