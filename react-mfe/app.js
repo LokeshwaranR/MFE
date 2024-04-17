@@ -50,6 +50,16 @@ class App extends React.Component {
       } else {
         console.error("Error in getting Data from service");
       }
+    } else if(selectedCommunication === "SPB"){
+      console.log(chartStore.dataFromAngular);
+      let AngularData = chartStore.getDataFromAngular();
+      let originalData = toJS(AngularData);
+      console.log(originalData);
+      if (originalData  && originalData.data && originalData.data.data) {
+        this.mapData(originalData.data.data);
+      } else {
+        console.error("Error in getting Data from service");
+      }
     }
   }
 
@@ -119,6 +129,7 @@ class App extends React.Component {
           data: json,
         },
       });
+      window.dispatchEvent(event);
     }
   }
 

@@ -41,6 +41,12 @@ export class HomeComponent implements OnInit, OnDestroy {
       } else {
         console.error('Error in getting Data');
       }
+    } else if (selectedCommunication == 'SPB') {
+      if (this.svc.dataFromReact && this.svc.dataFromReact.data && this.svc.dataFromReact.data.data) {
+        this.mapData(this.svc.dataFromReact.data.data);
+      } else {
+        console.error('Error in getting Data');
+      }
     }
   }
   ngOnDestroy(): void {
